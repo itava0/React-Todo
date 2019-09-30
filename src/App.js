@@ -1,18 +1,19 @@
-import React from 'react';
-import TodoList from './components/TodoComponents/TodoList'
+import React from "react";
+import TodoList from "./components/TodoComponents/TodoList";
+import TodoForm from "./components/TodoComponents/TodoForm";
 
-const Task = [
+const task = [
   {
-    task: 'Forum App',
+    task: "Forum App",
     id: 1528817077286,
     completed: false
   },
   {
-    task: 'Movie Reviews App',
+    task: "Movie Reviews App",
     id: 1528817084358,
     completed: false
   }
-]
+];
 
 class App extends React.Component {
   // you will need a place to store your state in this component.
@@ -22,15 +23,32 @@ class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      task: Task
-    }
+      task: task
+    };
   }
+  addTask = taskName => {
+    const newTask = {
+      task: taskName,
+      id: Date.now(),
+      completed: false
+    };
+    this.setState({
+      task: [...this.state.task, newTask]
+    });
+  };
+
+  clearTask = () => {
+    this.setState({
+      task: this.state.task.filter(item => !item.completed)
+    });
+  };
+
   render() {
-    console.log(this.state)
     return (
       <div>
         <h2>Welcome to your Todo App!</h2>
-        <TodoList task={this.state.task}/>
+        <TodoList task={this.state.task} clearTask={this.clearTask}/>
+        <TodoForm addTask={this.addTask}/>
       </div>
     );
   }

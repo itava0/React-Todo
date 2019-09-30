@@ -1,12 +1,13 @@
 import React, { Component } from "react";
 
 class TodoForm extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       task: ''
     };
   }
+
 
   handleChanges = e => {
     this.setState({
@@ -20,6 +21,7 @@ class TodoForm extends Component {
   };
 
   render() {
+    console.log(this.props.clearTask)
     return (
       <form onSubmit={this.submitTask}>
         <input
@@ -29,6 +31,7 @@ class TodoForm extends Component {
           onChange={this.handleChanges}
         />
         <button>Add Task</button>
+        <button onClick={this.props.clearTask}>Done</button>
       </form>
     );
   }
